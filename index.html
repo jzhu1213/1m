@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our One Month</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <div class="floating floating-one"></div>
+    <div class="floating floating-two"></div>
+    <div class="floating floating-three"></div>
+
+    <main class="app-card">
+      <section id="intro" class="view active">
+        <button id="skip-button" class="skip-button" type="button">Skip</button>
+        <div class="intro-minimal">
+          <h1 id="slide-question" class="intro-question"></h1>
+          <div class="intro-actions">
+            <button id="yes-button" class="intro-button intro-button-yes" type="button">Yes</button>
+            <button id="no-button" class="intro-button intro-button-no" type="button">No</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard" class="view">
+        <header class="dashboard-header">
+          <h2>April 1st, 2026</h2>
+        </header>
+
+        <nav class="top-tabs" aria-label="Main tabs">
+          <button class="tab-button active" type="button" data-target="letter">Letter</button>
+          <button class="tab-button" type="button" data-target="trivia">Trivia</button>
+          <button class="tab-button" type="button" data-target="photos">Photos</button>
+          <button class="tab-button" type="button" data-target="food">Food</button>
+        </nav>
+
+        <section id="tab-letter" class="tab-panel active" data-tab="letter">
+          <div class="panel-card letter-card">
+            <p class="panel-label">Letter</p>
+            <h3>Dear Xenia,</h3>
+            <p>
+              Happy one month! Even though we've only been together for 31 days, it's felt like forever. 
+              I guess that's because it's been longer than a month in a way, but that's a secret between us.
+            </p>
+            <p>
+              Apparently I sound like a broken record sometimes, but I can never express how happy you make me 
+              and all that you do for me. I didn't know just how much one person could do for me in all aspects 
+              of my life. You're my girlfriend, my best friend, a friendly acquaintance, and a whole lot more. 
+              You always drive me around, study with me, eat good food with me, and hang out with me every single 
+              second. Whenever I'm not with you, I'm always thinking about you: what you're doing, what you're 
+              thinking about, what I want to say to you next, and when the next time we'll see each other will be.
+            </p>
+            <p>
+              Even in this short amount of time, you have become such a sweet, relaxing, and important part of my days. 
+              You make the ordinary moments feel prettier, funnier, and warmer just by being there with me. The thing 
+              I thank you for most is how you're someone I can open up to and share my thoughts and feelings with. As
+              you already know it's hard for me sometimes to say what I'm actually thinking and stuff from the past that
+              affects me now. But you always sit there patiently, listening to me, understanding me, and making me feel
+              validated. It's something I haven't experienced before, and something I'll always appreciate.
+            </p>
+            <p>
+              I made this little site as a small gift to you that won't fade away, die out, or get lost in a clutter.
+              All you have to do is open up your phone and you can read this or any of the other things whenver you want.
+              Thank you for your smile, your patience, your support, and most importantly, your love. You're my favorite 
+              girl in the world.
+            </p>
+            <p>
+              I hope this is only the first of many little milestones we get to celebrate together. One month down, 
+              but every time I see you, it still feels like day one. I love you Xenia!
+            </p>
+            <p class="letter-signoff">From,<br>Jimmy</p>
+          </div>
+        </section>
+
+        <section id="tab-trivia" class="tab-panel" data-tab="trivia">
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <p class="panel-label">Trivia</p>
+                <h3>How well do you know us?</h3>
+              </div>
+              <span id="trivia-score" class="score-pill">0 / 4</span>
+            </div>
+
+            <div id="trivia-list" class="trivia-list"></div>
+          </div>
+        </section>
+
+        <section id="tab-photos" class="tab-panel" data-tab="photos">
+          <div class="panel-card">
+            <p class="panel-label">Photos & Memories</p>
+            <h3>Favorite pictures so far!</h3>
+
+            <div class="memory-grid">
+              <article class="memory-card">
+                <img class="memory-photo" src="photos/sleep1.png">
+                <h4>Sleeping Beauty 1</h4>
+                <p>Snoring sooooo loud</p>
+              </article>
+              <article class="memory-card">
+                <img class="memory-photo" src="photos/sleep2.png">
+                <h4>Sleeping Beauty 2</h4>
+                <p>Honk shoooo mimimimi</p>
+              </article>
+              <article class="memory-card">
+                <img class="memory-photo" src="photos/tummy.png">
+                <h4>Tummy time!</h4>
+              </article>
+              <article class="memory-card">
+                <img class="memory-photo" src="photos/heytea.png">
+                <h4>Tysons Corner</h4>
+                <p>HeyTea double pump</p>
+              </article>
+              <article class="memory-card">
+                <img class="memory-photo" src="photos/carjail.png">
+                <h4>Car Jail</h4>
+                <p>Yes police this is her</p>
+              </article>
+              <article class="memory-card">
+                <img class="memory-photo" src="photos/mud.png">
+                <h4>Mud Mask</h4>
+                <p>First #skincare moment together</p>
+              </article>
+              <article class="memory-card">
+                <img class="memory-photo" src="photos/mala.png">
+                <h4>Mala Canteen</h4>
+              </article>
+              <article class="memory-card">
+                <img class="memory-photo" src="photos/leek.png">
+                <h4>Leek</h4>
+                <p>lol</p>
+              </article>
+              <article class="memory-card">
+                <img class="memory-photo" src="photos/chicken.png">
+                <h4>Chicken Nugget Walking Pad</h4>
+                <p>One of my favorites already</p>
+              </article>
+            </article>
+            <article class="memory-card">
+              <img class="memory-photo" src="photos/hotpot.png">
+              <h4>Hotpot</h4>
+              <p>Why she looking at the iPad so close?</p>
+            </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-food" class="tab-panel" data-tab="food">
+          <div class="panel-card">
+            <p class="panel-label">Food Selector</p>
+            <h3>What should we eat?</h3>
+            <p class="section-copy">
+              Since it's always hard to decide what to eat, this will help us choose!
+            </p>
+
+            <div class="food-display tournament-status">
+              <div id="food-round" class="food-badge">Round of 16</div>
+              <h4 id="food-matchup-label">Match 1 of 8</h4>
+              <p id="food-helper-text">Tap the restaurant you want to eat at more.</p>
+            </div>
+
+            <div id="food-tournament" class="food-tournament">
+              <button id="food-choice-a" class="food-choice-button" type="button"></button>
+              <div class="food-versus">or</div>
+              <button id="food-choice-b" class="food-choice-button" type="button"></button>
+            </div>
+
+            <div id="food-winner-card" class="food-display food-winner-card hidden">
+              <div class="food-badge">Winner</div>
+              <h4 id="food-winner-name"></h4>
+            </div>
+
+            <button id="food-reset-button" class="primary-button" type="button">Restart</button>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

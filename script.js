@@ -1,10 +1,9 @@
 const introView = document.getElementById("intro");
 const dashboardView = document.getElementById("dashboard");
-const questionEl = document.getElementById("slide-question");
-const introActions = document.querySelector(".intro-actions");
-const skipButton = document.getElementById("skip-button");
-const yesButton = document.getElementById("yes-button");
-const noButton = document.getElementById("no-button");
+const passcodeFeedback = document.getElementById("passcode-feedback");
+const passcodeDots = Array.from(document.querySelectorAll("[data-passcode-dot]"));
+const keypadButtons = Array.from(document.querySelectorAll("[data-keypad-value]"));
+const keypadDeleteButton = document.getElementById("keypad-delete");
 const foodRoundEl = document.getElementById("food-round");
 const foodMatchupLabelEl = document.getElementById("food-matchup-label");
 const foodHelperTextEl = document.getElementById("food-helper-text");
@@ -17,11 +16,7 @@ const foodResetButton = document.getElementById("food-reset-button");
 const triviaListEl = document.getElementById("trivia-list");
 const triviaScoreEl = document.getElementById("trivia-score");
 
-const introSlides = [
-  "Is your name Xenia Chen?",
-  "Are you nonchalant, cute, and kawaii?",
-  "Is today your one month anniversary?"
-];
+const introPasscode = "030126";
 
 const triviaQuestions = [
   {
@@ -61,126 +56,58 @@ const foodRestaurants = [
   "Maryland Tandoor"
 ];
 
-let currentSlide = 0;
 let answeredTrivia = 0;
 let triviaScore = 0;
-let slideLocked = false;
-let noPressCount = 0;
 let foodCurrentRound = [];
 let foodNextRound = [];
 let foodMatchIndex = 0;
-const maxNoPresses = 10;
-const yesBaseScale = 1;
-const yesGrowthPerPress = 0.08;
-
-function renderSlide() {
-  slideLocked = false;
-  noPressCount = 0;
-  questionEl.textContent = introSlides[currentSlide];
-  resetIntroButtons();
-  updateYesButtonScale();
-}
-
-function updateYesButtonScale() {
-  const clampedPresses = Math.min(noPressCount, maxNoPresses);
-  const scale = yesBaseScale + clampedPresses * yesGrowthPerPress;
-  yesButton.style.transform = `scale(${scale})`;
-}
-
-function resetIntroButtons() {
-  introActions.classList.remove("runaway-mode");
-  yesButton.style.transform = "";
-  yesButton.style.position = "";
-  yesButton.style.left = "";
-  yesButton.style.top = "";
-  yesButton.style.zIndex = "";
-  noButton.style.position = "";
-  noButton.style.left = "";
-  noButton.style.top = "";
-  noButton.style.zIndex = "";
-  noButton.textContent = "No";
-}
-
-function handleYes() {
-  if (slideLocked) {
-    return;
-  }
-
-  slideLocked = true;
-  yesButton.disabled = true;
-  noButton.disabled = true;
-
-  setTimeout(() => {
-    currentSlide += 1;
-
-    if (currentSlide < introSlides.length) {
-      yesButton.disabled = false;
-      noButton.disabled = false;
-      renderSlide();
-      return;
-    }
-
-    unlockDashboard();
-  }, 500);
-}
-
-function handleNo() {
-  if (slideLocked) {
-    return;
-  }
-
-  if (currentSlide === 0 && noPressCount < maxNoPresses) {
-    noPressCount += 1;
-    updateYesButtonScale();
-  }
-
-  if (currentSlide === 1) {
-    noButton.textContent = "<-- :(";
-  }
-
-  if (currentSlide === 2) {
-    freezeThirdQuestionButtons();
-    placeNoButtonRandomly();
-  }
-}
-
-function freezeThirdQuestionButtons() {
-  if (introActions.classList.contains("runaway-mode")) {
-    return;
-  }
-
-  const yesRect = yesButton.getBoundingClientRect();
-  const noRect = noButton.getBoundingClientRect();
-
-  introActions.classList.add("runaway-mode");
-
-  yesButton.style.position = "fixed";
-  yesButton.style.left = `${yesRect.left}px`;
-  yesButton.style.top = `${yesRect.top}px`;
-  yesButton.style.zIndex = "30";
-
-  noButton.style.position = "fixed";
-  noButton.style.left = `${noRect.left}px`;
-  noButton.style.top = `${noRect.top}px`;
-  noButton.style.zIndex = "30";
-}
-
-function placeNoButtonRandomly() {
-  const buttonWidth = noButton.offsetWidth || 108;
-  const buttonHeight = noButton.offsetHeight || 52;
-  const padding = 24;
-  const maxX = Math.max(padding, window.innerWidth - buttonWidth - padding);
-  const maxY = Math.max(padding, window.innerHeight - buttonHeight - padding);
-  const nextX = padding + Math.random() * (maxX - padding);
-  const nextY = padding + Math.random() * (maxY - padding);
-
-  noButton.style.left = `${nextX}px`;
-  noButton.style.top = `${nextY}px`;
-}
+let enteredPasscode = "";
 
 function unlockDashboard() {
   introView.classList.remove("active");
   dashboardView.classList.add("active");
+}
+
+function handlePasscodeUnlock() {
+  if (enteredPasscode === introPasscode) {
+    passcodeFeedback.textContent = "";
+    unlockDashboard();
+    return;
+  }
+
+  passcodeFeedback.textContent = "Wrong passcode. Try again, pretty girl.";
+  enteredPasscode = "";
+  updatePasscodeDots();
+}
+
+function updatePasscodeDots() {
+  passcodeDots.forEach((dot, index) => {
+    dot.classList.toggle("filled", index < enteredPasscode.length);
+  });
+}
+
+function handleKeypadPress(value) {
+  if (enteredPasscode.length >= introPasscode.length) {
+    return;
+  }
+
+  enteredPasscode += value;
+  passcodeFeedback.textContent = "";
+  updatePasscodeDots();
+
+  if (enteredPasscode.length === introPasscode.length) {
+    handlePasscodeUnlock();
+  }
+}
+
+function handleKeypadDelete() {
+  if (!enteredPasscode.length) {
+    return;
+  }
+
+  enteredPasscode = enteredPasscode.slice(0, -1);
+  passcodeFeedback.textContent = "";
+  updatePasscodeDots();
 }
 
 function switchTab(target) {
@@ -355,11 +282,14 @@ document.querySelectorAll(".tab-button").forEach((button) => {
 foodChoiceAButton.addEventListener("click", () => chooseFoodWinner(foodMatchIndex));
 foodChoiceBButton.addEventListener("click", () => chooseFoodWinner(foodMatchIndex + 1));
 foodResetButton.addEventListener("click", startFoodTournament);
-yesButton.addEventListener("click", handleYes);
-noButton.addEventListener("click", handleNo);
-skipButton.addEventListener("click", unlockDashboard);
+keypadButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    handleKeypadPress(button.dataset.keypadValue);
+  });
+});
+keypadDeleteButton.addEventListener("click", handleKeypadDelete);
 
-renderSlide();
 renderTrivia();
 updateTriviaScore();
 startFoodTournament();
+updatePasscodeDots();

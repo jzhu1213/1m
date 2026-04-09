@@ -17,12 +17,33 @@
 
     <main class="app-card">
       <section id="intro" class="view active">
-        <button id="skip-button" class="skip-button" type="button">Skip</button>
         <div class="intro-minimal">
-          <h1 id="slide-question" class="intro-question"></h1>
-          <div class="intro-actions">
-            <button id="yes-button" class="intro-button intro-button-yes" type="button">Yes</button>
-            <button id="no-button" class="intro-button intro-button-no" type="button">No</button>
+          <h1 class="intro-question">Passcode!</h1>
+          <div class="passcode-card">
+            <p class="passcode-label">Tap the 6-digit code</p>
+            <div class="passcode-dots" aria-label="Passcode entry">
+              <span class="passcode-dot" data-passcode-dot></span>
+              <span class="passcode-dot" data-passcode-dot></span>
+              <span class="passcode-dot" data-passcode-dot></span>
+              <span class="passcode-dot" data-passcode-dot></span>
+              <span class="passcode-dot" data-passcode-dot></span>
+              <span class="passcode-dot" data-passcode-dot></span>
+            </div>
+            <div class="passcode-keypad" aria-label="Numeric keypad">
+              <button class="keypad-button" type="button" data-keypad-value="1">1</button>
+              <button class="keypad-button" type="button" data-keypad-value="2">2</button>
+              <button class="keypad-button" type="button" data-keypad-value="3">3</button>
+              <button class="keypad-button" type="button" data-keypad-value="4">4</button>
+              <button class="keypad-button" type="button" data-keypad-value="5">5</button>
+              <button class="keypad-button" type="button" data-keypad-value="6">6</button>
+              <button class="keypad-button" type="button" data-keypad-value="7">7</button>
+              <button class="keypad-button" type="button" data-keypad-value="8">8</button>
+              <button class="keypad-button" type="button" data-keypad-value="9">9</button>
+              <div class="keypad-spacer" aria-hidden="true"></div>
+              <button class="keypad-button" type="button" data-keypad-value="0">0</button>
+              <button id="keypad-delete" class="keypad-button keypad-button-secondary" type="button" aria-label="Delete">Delete</button>
+            </div>
+            <p id="passcode-feedback" class="passcode-feedback" aria-live="polite"></p>
           </div>
         </div>
       </section>
